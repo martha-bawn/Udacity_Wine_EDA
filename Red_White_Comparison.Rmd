@@ -26,6 +26,7 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path='Figs/',
 ```{r echo=FALSE, Load_the_Data}
 # Load the Data
 white = read.csv('wineQualityWhites.csv')
+red = read.csv('wineQualityReds.csv')
 ```
 
 # Univariate Plots Section
@@ -36,6 +37,12 @@ white$quality.factor <- as.factor(white$quality)
 white$qual.category <- cut(white$quality, breaks = c(0, 5, 10), 
                        labels = c("Low", "High"))
 str(white)
+
+red$quality.factor <- as.factor(red$quality)
+
+red$qual.category <- cut(red$quality, breaks = c(0, 5, 10), 
+                       labels = c("Low", "High"))
+str(red)
 ```
 
 I've added a quality.factor column to allow me to treat the quality rating as either a numerical or categorical value. I also added a broad quality category to differentiate between low and high quality wines, with the cutoff at 5. Otherwise the chemical property variables are all numerical. 
@@ -52,11 +59,16 @@ Sweet: more than 45 g/l
 white$sweetness <- cut(white$residual.sugar, breaks = c(0, 4, 12, 45, 66), 
                        labels = c("Dry", "Medium-Dry", "Medium", "Sweet"))
 table(white$sweetness)
+
+red$sweetness <- cut(red$residual.sugar, breaks = c(0, 4, 12, 45, 66), 
+                       labels = c("Dry", "Medium-Dry", "Medium", "Sweet"))
+table(red$sweetness)
 ```
 
 
 ```{r echo=FALSE, Univariate_Plots3}
 summary(white)
+summary(red)
 ```
 
 ```{r echo=FALSE, Univariate_Plots4}
